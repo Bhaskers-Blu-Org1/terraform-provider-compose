@@ -1,0 +1,4 @@
+.env
+**/*.tf*
+terraform-provider-compose
+crash.log

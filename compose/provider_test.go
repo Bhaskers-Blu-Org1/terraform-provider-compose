@@ -28,7 +28,7 @@ func TestProvider_impl(t *testing.T) {
 	var _ terraform.ResourceProvider = Provider()
 }
 
-func testAccPreCheck(t *testing.T) {
+func TestAccPreCheck(t *testing.T) {
 	if v := os.Getenv("COMPOSE_API_TOKEN"); v == "" {
 		t.Fatal("COMPOSE_API_TOKEN environment variable must be set for acceptance tests")
 	}

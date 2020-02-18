@@ -2,11 +2,12 @@ package compose
 
 import (
 	"fmt"
-	"github.com/compose/gocomposeapi"
+	"testing"
+
+	composeapi "github.com/compose/gocomposeapi"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"testing"
 )
 
 func TestAccComposeResourceDeploymentPostgres(t *testing.T) {
@@ -17,6 +18,7 @@ func TestAccComposeResourceDeploymentPostgres(t *testing.T) {
 	deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
 
 	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:     func() { TestAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckDeploymentDestroy,
 		Steps: []resource.TestStep{
@@ -38,6 +40,7 @@ func TestAccComposeResourceDeploymentRedis(t *testing.T) {
 	deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
 
 	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:     func() { TestAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckDeploymentDestroy,
 		Steps: []resource.TestStep{
@@ -51,68 +54,71 @@ func TestAccComposeResourceDeploymentRedis(t *testing.T) {
 	})
 }
 
-func TestAccComposeResourceDeploymentElasticSearch(t *testing.T) {
+// func TestAccComposeResourceDeploymentElasticSearch(t *testing.T) {
 
-	var deployment composeapi.Deployment
-	resourceName := "compose_deployment.elastic_search"
+// var deployment composeapi.Deployment
+// resourceName := "compose_deployment.elastic_search"
 
-	deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
+// deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
 
-	resource.ParallelTest(t, resource.TestCase{
-		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckDeploymentDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDeploymentConfigElasticSearch(deploymentName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentResourceExists(resourceName, &deployment),
-				),
-			},
-		},
-	})
-}
+// resource.ParallelTest(t, resource.TestCase{
+// PreCheck:     func() { TestAccPreCheck(t) },
+// Providers:    testAccProviders,
+// CheckDestroy: testAccCheckDeploymentDestroy,
+// Steps: []resource.TestStep{
+// {
+// Config: testAccDeploymentConfigElasticSearch(deploymentName),
+// Check: resource.ComposeTestCheckFunc(
+// testAccCheckDeploymentResourceExists(resourceName, &deployment),
+// ),
+// },
+// },
+// })
+// }
 
-func TestAccComposeResourceDeploymentEtcd(t *testing.T) {
+// func TestAccComposeResourceDeploymentEtcd(t *testing.T) {
 
-	var deployment composeapi.Deployment
-	resourceName := "compose_deployment.etcd"
+// var deployment composeapi.Deployment
+// resourceName := "compose_deployment.etcd"
 
-	deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
+// deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
 
-	resource.ParallelTest(t, resource.TestCase{
-		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckDeploymentDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDeploymentConfigEtcd(deploymentName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentResourceExists(resourceName, &deployment),
-				),
-			},
-		},
-	})
-}
+// resource.ParallelTest(t, resource.TestCase{
+// PreCheck:     func() { TestAccPreCheck(t) },
+// Providers:    testAccProviders,
+// CheckDestroy: testAccCheckDeploymentDestroy,
+// Steps: []resource.TestStep{
+// {
+// Config: testAccDeploymentConfigEtcd(deploymentName),
+// Check: resource.ComposeTestCheckFunc(
+// testAccCheckDeploymentResourceExists(resourceName, &deployment),
+// ),
+// },
+// },
+// })
+// }
 
-func TestAccComposeResourceDeploymentScylla(t *testing.T) {
+// func TestAccComposeResourceDeploymentScylla(t *testing.T) {
 
-	var deployment composeapi.Deployment
-	resourceName := "compose_deployment.scylla"
+// var deployment composeapi.Deployment
+// resourceName := "compose_deployment.scylla"
 
-	deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
+// deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
 
-	resource.ParallelTest(t, resource.TestCase{
-		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckDeploymentDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDeploymentConfigScylla(deploymentName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentResourceExists(resourceName, &deployment),
-				),
-			},
-		},
-	})
-}
+// resource.ParallelTest(t, resource.TestCase{
+// PreCheck:     func() { TestAccPreCheck(t) },
+// Providers:    testAccProviders,
+// CheckDestroy: testAccCheckDeploymentDestroy,
+// Steps: []resource.TestStep{
+// {
+// Config: testAccDeploymentConfigScylla(deploymentName),
+// Check: resource.ComposeTestCheckFunc(
+// testAccCheckDeploymentResourceExists(resourceName, &deployment),
+// ),
+// },
+// },
+// })
+// }
 
 func TestAccComposeResourceDeploymentMysql(t *testing.T) {
 
@@ -122,6 +128,7 @@ func TestAccComposeResourceDeploymentMysql(t *testing.T) {
 	deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
 
 	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:     func() { TestAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckDeploymentDestroy,
 		Steps: []resource.TestStep{
@@ -143,6 +150,7 @@ func TestAccComposeResourceDeploymentDisque(t *testing.T) {
 	deploymentName := acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
 
 	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:     func() { TestAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckDeploymentDestroy,
 		Steps: []resource.TestStep{
@@ -203,47 +211,47 @@ resource "compose_deployment" "redis" {
   `, name)
 }
 
-func testAccDeploymentConfigElasticSearch(name string) string {
-	return fmt.Sprintf(`
-data "compose_account" "account" {}
+// func testAccDeploymentConfigElasticSearch(name string) string {
+// return fmt.Sprintf(`
+// data "compose_account" "account" {}
 
-resource "compose_deployment" "elastic_search" {
-  name = "terraform-test-elastic-search-%[1]s"
-  account_id = "${data.compose_account.account.id}"
-  datacenter = "aws:us-east-1"
-  type = "elastic_search"
-  units = 1
-}
-  `, name)
-}
+// resource "compose_deployment" "elastic_search" {
+// name = "terraform-test-elastic-search-%[1]s"
+// account_id = "${data.compose_account.account.id}"
+// datacenter = "aws:us-east-1"
+// type = "elastic_search"
+// units = 1
+// }
+// `, name)
+// }
 
-func testAccDeploymentConfigEtcd(name string) string {
-	return fmt.Sprintf(`
-data "compose_account" "account" {}
+// func testAccDeploymentConfigEtcd(name string) string {
+// return fmt.Sprintf(`
+// data "compose_account" "account" {}
 
-resource "compose_deployment" "etcd" {
-  name = "terraform-test-etcd-%[1]s"
-  account_id = "${data.compose_account.account.id}"
-  datacenter = "aws:us-east-1"
-  type = "etcd"
-  units = 1
-}
-  `, name)
-}
+// resource "compose_deployment" "etcd" {
+// name = "terraform-test-etcd-%[1]s"
+// account_id = "${data.compose_account.account.id}"
+// datacenter = "aws:us-east-1"
+// type = "etcd"
+// units = 1
+// }
+// `, name)
+// }
 
-func testAccDeploymentConfigScylla(name string) string {
-	return fmt.Sprintf(`
-data "compose_account" "account" {}
+// func testAccDeploymentConfigScylla(name string) string {
+// return fmt.Sprintf(`
+// data "compose_account" "account" {}
 
-resource "compose_deployment" "scylla" {
-  name = "terraform-test-scylla-%[1]s"
-  account_id = "${data.compose_account.account.id}"
-  datacenter = "aws:us-east-1"
-  type = "scylla"
-  units = 1
-}
-  `, name)
-}
+// resource "compose_deployment" "scylla" {
+// name = "terraform-test-scylla-%[1]s"
+// account_id = "${data.compose_account.account.id}"
+// datacenter = "aws:us-east-1"
+// type = "scylla"
+// units = 1
+// }
+// `, name)
+// }
 
 func testAccDeploymentConfigMysql(name string) string {
 	return fmt.Sprintf(`
@@ -285,7 +293,7 @@ func testAccCheckDeploymentDestroy(s *terraform.State) error {
 
 		deployment, err := conn.GetDeployment(rs.Primary.ID)
 		if err != nil && deployment.ID == rs.Primary.ID {
-			return fmt.Errorf("Deployment (%s) still exists.", rs.Primary.ID)
+			return fmt.Errorf("deployment (%s) still exists", rs.Primary.ID)
 		}
 	}
 	return nil

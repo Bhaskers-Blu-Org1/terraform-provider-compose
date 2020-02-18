@@ -37,3 +37,12 @@ fmt:
 
 fmtcheck:
 				@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
+
+gocognit:
+	gocognit -over 30 "$(CURDIR)"
+
+gosec:
+	gosec ./...
+
+lint:
+	golangci-lint

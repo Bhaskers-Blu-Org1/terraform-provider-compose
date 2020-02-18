@@ -3,10 +3,11 @@ package compose
 import (
 	"errors"
 	"fmt"
-	"github.com/compose/gocomposeapi"
+	"testing"
+
+	composeapi "github.com/compose/gocomposeapi"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"testing"
 )
 
 func TestAccComposeDataSourceAccount(t *testing.T) {
@@ -14,6 +15,7 @@ func TestAccComposeDataSourceAccount(t *testing.T) {
 	var account composeapi.Account
 
 	resource.Test(t, resource.TestCase{
+		PreCheck:  func() { TestAccPreCheck(t) },
 		Providers: testAccProviders,
 		Steps: []resource.TestStep{
 			{

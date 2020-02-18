@@ -244,7 +244,7 @@ func resourceDeploymentRead(d *schema.ResourceData, m interface{}) error {
 		return err
 	}
 
-	d.Set("connection_strings", []interface{}{
+	err := d.Set("connection_strings", []interface{}{
 		map[string]interface{}{
 			"health":    deployment.Connection.Health,
 			"ssh":       deployment.Connection.SSH,
@@ -254,11 +254,14 @@ func resourceDeploymentRead(d *schema.ResourceData, m interface{}) error {
 			"direct":    deployment.Connection.Direct,
 		},
 	})
+	if err != nil {
+		return err
+	}
 
 	connections := make([]interface{}, len(deployment.Connection.Direct))
-	for i, connection_string := range deployment.Connection.Direct {
+	for i, connectionString := range deployment.Connection.Direct {
 		// d.Set("")
-		u, err := url.Parse(connection_string)
+		u, err := url.Parse(connectionString)
 		if err != nil {
 			return err
 		}
@@ -276,8 +279,7 @@ func resourceDeploymentRead(d *schema.ResourceData, m interface{}) error {
 			"sslmode":        "required",
 		}
 	}
-	err := d.Set("connection_details", connections)
-	if err != nil {
+	if err := d.Set("connection_details", connections); err != nil {
 		return err
 	}
 
@@ -285,7 +287,9 @@ func resourceDeploymentRead(d *schema.ResourceData, m interface{}) error {
 	if errs != nil {
 		return errs[0]
 	}
-	d.Set("units", scalings.AllocatedUnits)
+	if err := d.Set("units", scalings.AllocatedUnits); err != nil {
+		return err
+	}
 
 	// TODO: links
 	return nil
@@ -353,10 +357,10 @@ func resourceDeploymentDelete(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
 
-func waitForRecipe(c *composeapi.Client, recipeID string, timeout_optional ...time.Duration) error {
+func waitForRecipe(c *composeapi.Client, recipeID string, timeoutOptional ...time.Duration) error {
 	timeout := 30 * time.Minute
-	if len(timeout_optional) > 0 {
-		timeout = timeout_optional[0]
+	if len(timeoutOptional) > 0 {
+		timeout = timeoutOptional[0]
 	}
 	start := time.Now()
 

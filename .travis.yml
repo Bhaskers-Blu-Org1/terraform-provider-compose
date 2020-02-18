@@ -13,10 +13,10 @@ jobs:
       script: make lint
     - stage: test
       script: make test
-    - stage: build
-      script: make build
     - script: make testacc
       if: branch = master
+    - stage: build
+      script: make build
     - stage: deploy
       script: skip
       before_deploy:

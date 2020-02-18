@@ -10,7 +10,7 @@ import (
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-			"api_token": &schema.Schema{
+			"api_token": {
 				Type:        schema.TypeString,
 				Required:    true,
 				Sensitive:   true,

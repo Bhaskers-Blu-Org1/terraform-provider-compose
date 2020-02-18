@@ -17,64 +17,64 @@ func resourceDeployment() *schema.Resource {
 		Delete: resourceDeploymentDelete,
 
 		Schema: map[string]*schema.Schema{
-			"name": &schema.Schema{
+			"name": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"account_id": &schema.Schema{
+			"account_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"cluster_id": &schema.Schema{
+			"cluster_id": {
 				Type:          schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"datacenter"},
 			},
-			"datacenter": &schema.Schema{
+			"datacenter": {
 				Type:          schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"cluster_id"},
 			},
-			"type": &schema.Schema{
+			"type": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"version": &schema.Schema{
+			"version": {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
-			"units": &schema.Schema{
+			"units": {
 				Type:     schema.TypeInt,
 				Optional: true,
 				Default:  1,
 			},
-			"ssl": &schema.Schema{
+			"ssl": {
 				Type:     schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
-			"cache_mode": &schema.Schema{
+			"cache_mode": {
 				Type:     schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
-			"wired_tiger": &schema.Schema{
+			"wired_tiger": {
 				Type:     schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
-			"notes": &schema.Schema{
+			"notes": {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
-			"customer_billing_code": &schema.Schema{
+			"customer_billing_code": {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
@@ -84,16 +84,16 @@ func resourceDeployment() *schema.Resource {
 			// Optional: true,
 			// ForceNew: true,
 			// },
-			"created_at": &schema.Schema{
+			"created_at": {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			"ca_certificate_base64": &schema.Schema{
+			"ca_certificate_base64": {
 				Type:      schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
-			"connection_details": &schema.Schema{
+			"connection_details": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
@@ -127,7 +127,7 @@ func resourceDeployment() *schema.Resource {
 					},
 				},
 			},
-			"connection_strings": &schema.Schema{
+			"connection_strings": {
 				Type:     schema.TypeList,
 				Computed: true,
 				MaxItems: 1,

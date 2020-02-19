@@ -24,7 +24,7 @@ jobs:
       script: skip
       before_deploy:
         - mkdir releases
-        - gox -os="darwin,linux,windows" -arch="amd64" -output="releases/{{.Dir}}_${TRAVIS_TAG}_{{.OS}}_{{.Arch}}"
+        - gox -os="darwin linux windows" -arch="amd64" -output="releases/{{.Dir}}_${TRAVIS_TAG}_{{.OS}}_{{.Arch}}"
       deploy:
         draft: true
         provider: releases

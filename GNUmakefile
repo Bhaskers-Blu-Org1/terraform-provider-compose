@@ -45,4 +45,4 @@ gosec:
 	gosec ./...
 
 lint:
-	golangci-lint run
+	golangci-lint run compose/

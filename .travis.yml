@@ -1,37 +1,38 @@
 language: go
 go:
-  - 1.13.x
+- 1.13.x
 env:
   global:
-    secure: L3qspsLzIjGxx4R6zJ/XDC7HqsY0HLHf0RdfNGSeEfQheMKkPPlT9i/163QIT3N0YA3wMHVUPb8wCq3HXR5sncjNu6LABt/g5CtfFnaWwZ0fom1/7OdC1KMekvlwqDsnUqVyjZQozSfrAmPTmO26F7059175awb2pxneNYEh0hA9rDN/1WhlZ/ma6kQ2k6VyHECZfc1ELAWjfZpfcdOcK5s6mXKM2lyI6NzZFLc2kkFJ9Hk2TfpyWOST1KZUhB6uhKy768CSoLCs5YuIpO2Uq4rpbUF0gNARbC/HcbDpWou/P4upXsQ5GG/jeOHkUzBtGrCd2IhUBcvNb0gor99sEBFKYRwdbelqN3XUr7xwtHFtBXyKr3tCpYcDpvtasqUG1/0+cBiSfRv2pIaHxh7KczubtYwsdIv2x7M89sD/7nvgjbgkGfLwLxBfMFleBtp3fIIQpKoq2bSM7YMJU+IzerErAGevpjE09VwzX1pzdrmNZEX3w5Xgmq7z+MI8K5/MHW1aRXcgT3bRszKH/QgeC+u096vSUvVS+tY6+9TwuARsCtGvHNttKm5yw5VST2jX8QbmNp6AHLdOzoC2/mp+97THz+Avrxm6bYH9y0a01VDz21g7INePGlAoz+6Yk2cNpE74fZymdwseexefPbCh0vlgd2gU2DqYfX33eXmtL+Y=
+  - secure: L3qspsLzIjGxx4R6zJ/XDC7HqsY0HLHf0RdfNGSeEfQheMKkPPlT9i/163QIT3N0YA3wMHVUPb8wCq3HXR5sncjNu6LABt/g5CtfFnaWwZ0fom1/7OdC1KMekvlwqDsnUqVyjZQozSfrAmPTmO26F7059175awb2pxneNYEh0hA9rDN/1WhlZ/ma6kQ2k6VyHECZfc1ELAWjfZpfcdOcK5s6mXKM2lyI6NzZFLc2kkFJ9Hk2TfpyWOST1KZUhB6uhKy768CSoLCs5YuIpO2Uq4rpbUF0gNARbC/HcbDpWou/P4upXsQ5GG/jeOHkUzBtGrCd2IhUBcvNb0gor99sEBFKYRwdbelqN3XUr7xwtHFtBXyKr3tCpYcDpvtasqUG1/0+cBiSfRv2pIaHxh7KczubtYwsdIv2x7M89sD/7nvgjbgkGfLwLxBfMFleBtp3fIIQpKoq2bSM7YMJU+IzerErAGevpjE09VwzX1pzdrmNZEX3w5Xgmq7z+MI8K5/MHW1aRXcgT3bRszKH/QgeC+u096vSUvVS+tY6+9TwuARsCtGvHNttKm5yw5VST2jX8QbmNp6AHLdOzoC2/mp+97THz+Avrxm6bYH9y0a01VDz21g7INePGlAoz+6Yk2cNpE74fZymdwseexefPbCh0vlgd2gU2DqYfX33eXmtL+Y=
+  - secure: V5XUgVbAUlGJ3w4KjGOWTF74rUgaa85uGmZLv8+yJ+tXO04CLTcwmhSsakPw4b3hta2iERIYPOiq/mt56EMPYAuSBLmSscLOqOiwhN5mP+EO2TFrQnMbb8J2kuKshfgom2ZBXeZMXISRICfjoLKIhVUUOL1+vKWH7McqT7RW5VOEiz9GlK+NQiS7EhdBp8GxjHa19QFBB/3SSJesMI8WPKCPXSxumrEcluVD/TYLycr10tXHu5aiTs+OrxQXy9T+j80EexdehVZ2Uvx76gzAU9J0z9C4TvQmSkkTG5TpWu0QG8z0Wcj0LE5Xd+ahbuIT5CxK20WPuXpceLdnMwCvJc5WvpWK9w9X8SZoBmYWc13++nNHfCLr4Ddu1LJRQREL9xSWzyJRIkBlXq0azyo+z1cScvMl8iGhgbfdbWyklj5imlIB9XH5yq2xPnYhOsWAbA9PSAzoH9oh6Flc9wdqXPMwMeTbE+JEkoZtjPZQztr77jVm9wTWzRJTjL4YvPSHgfhnaG88+qa/pJnszh3CmWhJtpLOBd5Zh3L8BxjOPNiErKnidiuUVCUenoyVVYfb09gRBnI9aiCn2knRqOlInQqFol8xXWWWqakHfDANtX34+GepgFt5SqEKQebt93G/CgMGft83xCscwcpqZhrvb9eDaRmS6RyAi9Ey9g5knF0=
 jobs:
   include:
-    - stage: lint
-      install:
-        - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.23.6
-      script:
-        - ls
-        - ls compose
-        - make lint
-    - stage: test
-      script: make testacc
-      if: branch = master
-    - stage: build
-      script: make build
-    - stage: deploy
-      install:
-        - go get github.com/mitchellh/gox
-      script: skip
-      before_deploy:
-        - mkdir releases
-        - gox -os="darwin" -arch="amd64" -output="releases/{{.Dir}}_${TRAVIS_TAG}_{{.OS}}_{{.Arch}}"
-      deploy:
-        draft: true
-        provider: releases
-        api_key:
-          secure: prpNiow7hmN4lCkExiSkhmgO8JjxzIRfJHgv0uGHoiIDJFtcpyk2FvRVZ9JscEkHgafEwIgU7ZpnHuEV42H253a+v2oEdJBR2MQBT8IkaVrxnCsCbA5e6ha2ee1+rVsmsWC/2worN1CEioc+M6SpplsOf2r2VarEKQxvbvFjAX5VdMBsDQG4yAB5wiUy3cHTJBwnTlJJwAZxRc3uDtMguOWrXs/Llg2sCBHjWHD98tMhUZxXnu1HKDbJAtBisnencMP520vDOYQCu18PA8MI1XBwBMHg5J2FMf266mgKLfNVeswHh0lb200aeKOZuEMuRyBK11vyfvX2PZ7MhkycqBZ8qg6617ERtly203aKoi8tY/NwjccA9Yc+RUVO96O/u6K1NWBGlLB1ZQkMbF1cdv4QjeMxmqbdMVBc5dHheALAN9qVMTWKjFCLfuOJ6Hlb9nNrnPZTGewVwBwzy5BQRcwD0Zz5NN0HdjKZxQSdDCwtv4jCaCW48dUPcBYDNydrY+9yQzDdmYuTX2FuGPxC6+C+VOICByOwlOdIGSp5+T8LXKH09UnfytmAegXTlT4+41+iOXn9X4wCvh5slH7SPrqJXUCUEf3LFPLpPiru8dMm2qL5bi9eiectE4gVSDQVBntvU1SVGLBUHROagNVUyarlPENg129XtL3EWXPit2c=
-        skip_cleanup: true
-        file_glob: true
-        file: releases/*
-        on:
-          tags: true
+  - stage: lint
+    install:
+    - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh
+      | sh -s -- -b $(go env GOPATH)/bin v1.23.6
+    script:
+    - ls
+    - ls compose
+    - make lint
+  - stage: test
+    script: make testacc
+    if: branch = master
+  - stage: build
+    script: make build
+  - stage: deploy
+    install:
+    - go get github.com/mitchellh/gox
+    script: skip
+    before_deploy:
+    - mkdir releases
+    - gox -os="darwin" -arch="amd64" -output="releases/{{.Dir}}_${TRAVIS_TAG}_{{.OS}}_{{.Arch}}"
+    deploy:
+      draft: true
+      provider: releases
+      api_key: "$GITHUB_OAUTH_TOKEN"
+      skip_cleanup: true
+      file_glob: true
+      file: releases/*
+      on:
+        tags: true

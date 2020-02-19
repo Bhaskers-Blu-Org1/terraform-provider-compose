@@ -9,15 +9,13 @@ jobs:
     - stage: lint
       install:
         - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.23.6
-      script:
-        - ls
-        - ls compose
-        - make lint
-    - stage: test
-      script: make testacc
-      if: branch = master
+      script: make lint
     - stage: build
       script: make build
+    - stage: test
+      script: make test
+    - script: make testacc
+      if: branch = master
     - stage: deploy
       install:
         - go get github.com/mitchellh/gox

@@ -19,6 +19,8 @@ jobs:
     - stage: build
       script: make build
     - stage: deploy
+      install:
+        - go get github.com/mitchellh/gox
       script: skip
       before_deploy:
         - mkdir releases

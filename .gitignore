@@ -2,3 +2,4 @@
 **/*.tf*
 terraform-provider-compose
 crash.log
+releases/

@@ -1,8 +1,34 @@
 language: go
-
 go:
   - 1.13.x
-
-script:
-  - make lint
-  - make test
+env:
+  global:
+    - secure: L3qspsLzIjGxx4R6zJ/XDC7HqsY0HLHf0RdfNGSeEfQheMKkPPlT9i/163QIT3N0YA3wMHVUPb8wCq3HXR5sncjNu6LABt/g5CtfFnaWwZ0fom1/7OdC1KMekvlwqDsnUqVyjZQozSfrAmPTmO26F7059175awb2pxneNYEh0hA9rDN/1WhlZ/ma6kQ2k6VyHECZfc1ELAWjfZpfcdOcK5s6mXKM2lyI6NzZFLc2kkFJ9Hk2TfpyWOST1KZUhB6uhKy768CSoLCs5YuIpO2Uq4rpbUF0gNARbC/HcbDpWou/P4upXsQ5GG/jeOHkUzBtGrCd2IhUBcvNb0gor99sEBFKYRwdbelqN3XUr7xwtHFtBXyKr3tCpYcDpvtasqUG1/0+cBiSfRv2pIaHxh7KczubtYwsdIv2x7M89sD/7nvgjbgkGfLwLxBfMFleBtp3fIIQpKoq2bSM7YMJU+IzerErAGevpjE09VwzX1pzdrmNZEX3w5Xgmq7z+MI8K5/MHW1aRXcgT3bRszKH/QgeC+u096vSUvVS+tY6+9TwuARsCtGvHNttKm5yw5VST2jX8QbmNp6AHLdOzoC2/mp+97THz+Avrxm6bYH9y0a01VDz21g7INePGlAoz+6Yk2cNpE74fZymdwseexefPbCh0vlgd2gU2DqYfX33eXmtL+Y=
+jobs:
+  include:
+    - stage: lint
+      install:
+        - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.23.6
+      script: make lint
+    - stage: build
+      script: make build
+    - stage: test
+      script: make test
+    - script: make testacc
+      if: branch = master
+    - stage: deploy
+      install:
+        - go get github.com/mitchellh/gox
+      script: skip
+      before_deploy:
+        - mkdir releases
+        - gox -os="darwin linux windows" -arch="amd64" -output="releases/{{.Dir}}_${TRAVIS_TAG}_{{.OS}}_{{.Arch}}"
+      deploy:
+        draft: true
+        provider: releases
+        api_key: $GITHUB_TOKEN
+        skip_cleanup: true
+        file_glob: true
+        file: releases/*
+        on:
+          tags: true

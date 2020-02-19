@@ -11,6 +11,7 @@ require (
 	github.com/hashicorp/terraform-config-inspect v0.0.0-20191212124732-c6ae6269b9d7 // indirect
 	github.com/hashicorp/terraform-plugin-sdk v1.5.0
 	github.com/jtolds/gls v4.2.1+incompatible // indirect
+	github.com/mitchellh/gox v1.0.1 // indirect
 	github.com/parnurzeal/gorequest v0.2.16 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/securego/gosec v0.0.0-20200203094520-d13bb6d2420c // indirect
